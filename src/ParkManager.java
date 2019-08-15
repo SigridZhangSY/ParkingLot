@@ -1,4 +1,4 @@
-import exceptions.NoCapacityException;
+import exceptions.NoPrkingSpaceException;
 
 import java.util.List;
 
@@ -12,11 +12,10 @@ public class ParkManager {
     }
 
     public Ticket park(Car car) {
-        ParkingLot parkingLot = parkingLots.get(0);
-
-        if (parkingLot.isFull()) {
-            throw new NoCapacityException();
-        }
-        return parkingLot.park(car);
+        ParkingLot chosenParkingLot = parkingLots.stream()
+                .filter(p -> !p.isFull())
+                .findFirst()
+                .orElseThrow(NoPrkingSpaceException::new);
+        return chosenParkingLot.park(car);
     }
 }
