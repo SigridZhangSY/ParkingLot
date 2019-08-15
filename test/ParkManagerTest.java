@@ -1,6 +1,7 @@
 import exceptions.NoCapacityException;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class ParkManagerTest {
@@ -22,5 +23,18 @@ public class ParkManagerTest {
         ParkManager parkManager = new ParkManager(fullParkingLot);
 
         parkManager.park(new Car());
+    }
+
+    @Test
+    public void should_park_car_in_first_lot_when_both_lots_are_not_full() {
+        ParkingLot firstLot = new ParkingLot(1);
+        ParkingLot secondLot = new ParkingLot(1);
+
+        ParkManager parkManager = new ParkManager(firstLot, secondLot);
+        Car car = new Car();
+        Ticket ticket = parkManager.park(car);
+
+        assertEquals(firstLot.pick(ticket), car);
+
     }
 }

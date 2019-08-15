@@ -1,13 +1,19 @@
 import exceptions.NoCapacityException;
 
-public class ParkManager {
-    ParkingLot parkingLot;
+import java.util.List;
 
-    public ParkManager(ParkingLot parkingLot) {
-        this.parkingLot = parkingLot;
+import static java.util.Arrays.asList;
+
+public class ParkManager {
+    List<ParkingLot> parkingLots;
+
+    public ParkManager(ParkingLot... parkingLots) {
+        this.parkingLots = asList(parkingLots);
     }
 
     public Ticket park(Car car) {
+        ParkingLot parkingLot = parkingLots.get(0);
+
         if (parkingLot.isFull()) {
             throw new NoCapacityException();
         }
