@@ -43,4 +43,8 @@ public class ParkingLot {
     public boolean isFull() {
         return this.capacity == this.carMap.size();
     }
+
+    public int getEmptyCount() {
+        return this.capacity - this.carMap.size();
+    }
 }

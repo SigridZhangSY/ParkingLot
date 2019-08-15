@@ -76,4 +76,28 @@ public class ParkingLotTest {
 
         assertFalse(parkingLot.isFull());
     }
+
+    @Test
+    public void should_return_zero_when_park_lot_is_full() {
+        ParkingLot parkingLot = new ParkingLot(1);
+        parkingLot.park(new Car());
+
+        assertEquals(parkingLot.getEmptyCount(), 0);
+    }
+
+    @Test
+    public void should_return_capacity_when_there_is_no_car_in_park_lot() {
+        ParkingLot parkingLot = new ParkingLot(1);
+
+        assertEquals(parkingLot.getEmptyCount(), 1);
+    }
+
+    @Test
+    public void should_return_right_number_when_check_empty_count() {
+        int capacity = 5;
+        ParkingLot parkingLot = new ParkingLot(capacity);
+        parkingLot.park(new Car());
+
+        assertEquals(parkingLot.getEmptyCount(), capacity - 1);
+    }
 }
