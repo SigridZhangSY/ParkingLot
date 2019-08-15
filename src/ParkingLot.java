@@ -30,6 +30,7 @@ public class ParkingLot {
         if (Objects.isNull(car)) {
             throw new CarNotFoundException();
         }
+        carMap.remove(ticket);
         return car;
     }
 }
