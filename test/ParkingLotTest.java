@@ -2,11 +2,9 @@ import exceptions.CarDuplicatedException;
 import exceptions.CarNotFoundException;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class ParkingLotTest {
-
 
     private ParkingLot parkingLot = new ParkingLot();
 
@@ -51,5 +49,19 @@ public class ParkingLotTest {
         parkingLot.pick(ticket);
 
         parkingLot.pick(ticket);
+    }
+
+    @Test
+    public void should_return_true_when_check_full_with_full_parking_lot() {
+        ParkingLot fullParkingLot = new ParkingLot(0);
+
+        assertTrue(fullParkingLot.isfull());
+    }
+
+    @Test
+    public void should_return_false_when_check_full_with_full_parking_lot() {
+        ParkingLot fullParkingLot = new ParkingLot(1);
+
+        assertFalse(fullParkingLot.isfull());
     }
 }

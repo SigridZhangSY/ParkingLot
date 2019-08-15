@@ -8,11 +8,17 @@ import java.util.Optional;
 
 public class ParkingLot {
 
+    private int capacity;
+    private Map<Ticket, Car> carMap;
+
     public ParkingLot() {
         this.carMap = new HashMap<>();
     }
 
-    private Map<Ticket, Car> carMap;
+    public ParkingLot(int capacity) {
+        this.carMap = new HashMap<>();
+        this.capacity = capacity;
+    }
 
 
     public Ticket park(Car car) {
@@ -32,5 +38,9 @@ public class ParkingLot {
         }
         carMap.remove(ticket);
         return car;
+    }
+
+    public boolean isfull() {
+        return this.capacity == 0;
     }
 }
