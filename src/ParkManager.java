@@ -1,3 +1,4 @@
+import exceptions.CarNotFoundException;
 import exceptions.NoPrkingSpaceException;
 
 import java.util.List;
@@ -20,6 +21,14 @@ public class ParkManager {
     }
 
     public Car pick(Ticket ticket) {
-        return parkingLots.get(0).pick(ticket);
+        for (ParkingLot parkingLot : this.parkingLots) {
+            try {
+                Car car = parkingLot.pick(ticket);
+                return car;
+            }catch (CarNotFoundException ignored) {
+            }
+        }
+
+        throw new CarNotFoundException();
     }
 }
