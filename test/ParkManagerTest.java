@@ -51,4 +51,17 @@ public class ParkManagerTest {
         assertEquals(secondLot.pick(ticket), car);
     }
 
+    @Test
+    public void should_manager_pick_car_when_park_car_in_first_lot() {
+        ParkingLot firstLot = new ParkingLot(1);
+        Car car = new Car();
+        Ticket ticket = firstLot.park(car);
+        ParkManager parkManager = new ParkManager(firstLot);
+
+        Car pickedCar = parkManager.pick(ticket);
+
+        assertEquals(car, pickedCar);
+    }
+
+
 }

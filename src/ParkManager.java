@@ -18,4 +18,8 @@ public class ParkManager {
                 .orElseThrow(NoPrkingSpaceException::new);
         return chosenParkingLot.park(car);
     }
+
+    public Car pick(Ticket ticket) {
+        return parkingLots.get(0).pick(ticket);
+    }
 }
