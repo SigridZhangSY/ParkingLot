@@ -1,3 +1,4 @@
+import exceptions.CarNotFoundException;
 import exceptions.NoPrkingSpaceException;
 import org.junit.Test;
 
@@ -76,5 +77,12 @@ public class ParkManagerTest {
         assertEquals(car, pickedCar);
     }
 
+    @Test(expected = CarNotFoundException.class)
+    public void should_throw_exception_when_pick_not_parked_car() {
+        ParkingLot firstLot = new ParkingLot(1);
+        ParkingLot secondLot = new ParkingLot(1);
+        ParkManager parkManager = new ParkManager(firstLot, secondLot);
 
+        parkManager.pick(new Ticket());
+    }
 }
