@@ -8,7 +8,7 @@ public class ParkManager {
     }
 
     public Ticket park(Car car) {
-        if (parkingLot.isfull()) {
+        if (parkingLot.isFull()) {
             throw new NoCapacityException();
         }
         return parkingLot.park(car);

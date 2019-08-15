@@ -52,16 +52,28 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void should_return_true_when_check_full_with_full_parking_lot() {
-        ParkingLot fullParkingLot = new ParkingLot(0);
+    public void should_return_false_when_check_full_with_not_full_parking_lot() {
+        ParkingLot fullParkingLot = new ParkingLot(1);
 
-        assertTrue(fullParkingLot.isfull());
+        assertFalse(fullParkingLot.isFull());
     }
 
     @Test
-    public void should_return_false_when_check_full_with_full_parking_lot() {
-        ParkingLot fullParkingLot = new ParkingLot(1);
+    public void should_park_lot_be_full_after_park_a_car_in_park_lot_which_capacity_is_one() {
+        ParkingLot parkingLot = new ParkingLot(1);
+        parkingLot.park(new Car());
 
-        assertFalse(fullParkingLot.isfull());
+        assertTrue(parkingLot.isFull());
+    }
+
+    @Test
+    public void should_park_lot_be_not_full_after_pick_a_car_from_park_lot_which_is_full() {
+        ParkingLot parkingLot = new ParkingLot(1);
+        Ticket ticket = parkingLot.park(new Car());
+        assertTrue(parkingLot.isFull());
+
+        parkingLot.pick(ticket);
+
+        assertFalse(parkingLot.isFull());
     }
 }

@@ -40,7 +40,7 @@ public class ParkingLot {
         return car;
     }
 
-    public boolean isfull() {
-        return this.capacity == 0;
+    public boolean isFull() {
+        return this.capacity == this.carMap.size();
     }
 }
