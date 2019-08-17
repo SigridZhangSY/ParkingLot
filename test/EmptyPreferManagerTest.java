@@ -50,7 +50,19 @@ public class EmptyPreferManagerTest {
         EmptyPreferManager manager = new EmptyPreferManager(firstLot, secondLot);
         Car car = new Car();
 
-        Ticket ticket = manager.park(car);
+        manager.park(car);
+    }
 
+    @Test
+    public void should_pick_a_car_from_first_lot() {
+        ParkingLot firstLot = new ParkingLot(2);
+        ParkingLot secondLot = new ParkingLot(2);
+        Car car = new Car();
+        Ticket ticket =firstLot.park(car);
+        EmptyPreferManager manager = new EmptyPreferManager(firstLot, secondLot);
+
+        Car picked = manager.pick(ticket);
+
+        assertThat(picked, is(car));
     }
 }

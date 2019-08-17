@@ -15,4 +15,8 @@ public class EmptyPreferManager {
                 .map(parkingLot -> parkingLot.park(car))
                 .get();
     }
+
+    public Car pick(Ticket ticket) {
+        return this.parkingLots.get(0).pick(ticket);
+    }
 }
