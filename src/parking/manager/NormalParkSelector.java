@@ -3,15 +3,15 @@ package parking.manager;
 import parking.ParkingLot;
 
 import java.util.Comparator;
+import java.util.List;
 
-public class NormalParkManager extends ParkManager {
+public class NormalParkSelector implements ParkingLotSelector {
 
-    public NormalParkManager(ParkingLot... parkingLots) {
-        super(parkingLots);
+    public NormalParkSelector() {
+
     }
 
-    @Override
-    public ParkingLot selectParkingLot() {
+    public ParkingLot selectParkingLot(List<ParkingLot> parkingLots) {
         return parkingLots.stream()
                 .min(Comparator.comparing(ParkingLot::isFull))
                 .get();

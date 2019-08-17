@@ -10,11 +10,13 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 
-public abstract class ParkManager {
+public class ParkManager {
     List<ParkingLot> parkingLots;
+    ParkingLotSelector parkingLotSelector;
 
-    public ParkManager(ParkingLot... parkingLots) {
+    public ParkManager(ParkingLotSelector parkingLotSelector, ParkingLot... parkingLots) {
         this.parkingLots = asList(parkingLots);
+        this.parkingLotSelector = parkingLotSelector;
     }
 
 
@@ -23,7 +25,7 @@ public abstract class ParkManager {
             try {
                 Car car = parkingLot.pick(ticket);
                 return car;
-            }catch (CarNotFoundException ignored) {
+            } catch (CarNotFoundException ignored) {
             }
         }
 
@@ -31,12 +33,10 @@ public abstract class ParkManager {
     }
 
     public Ticket park(Car car) {
-        ParkingLot selectedParkingLot = selectParkingLot();
-        if(selectedParkingLot.isFull()) {
+        ParkingLot selectedParkingLot = parkingLotSelector.selectParkingLot(this.parkingLots);
+        if (selectedParkingLot.isFull()) {
             throw new NoPrkingSpaceException();
         }
         return selectedParkingLot.park(car);
     }
-
-    protected abstract ParkingLot selectParkingLot();
 }

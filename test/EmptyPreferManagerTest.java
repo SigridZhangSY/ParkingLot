@@ -2,9 +2,10 @@ import parking.exceptions.CarNotFoundException;
 import parking.exceptions.NoPrkingSpaceException;
 import org.junit.Test;
 import parking.Car;
-import parking.manager.EmptyPreferManager;
+import parking.manager.EmptyPreferSelector;
 import parking.ParkingLot;
 import parking.Ticket;
+import parking.manager.ParkManager;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
@@ -15,7 +16,7 @@ public class EmptyPreferManagerTest {
         ParkingLot firstLot = new ParkingLot(2);
         ParkingLot secondLot = new ParkingLot(2);
         secondLot.park(new Car());
-        EmptyPreferManager manager = new EmptyPreferManager(firstLot, secondLot);
+        ParkManager manager = new ParkManager(new EmptyPreferSelector(), firstLot, secondLot);
         Car car = new Car();
 
         Ticket ticket = manager.park(car);
@@ -28,7 +29,7 @@ public class EmptyPreferManagerTest {
         ParkingLot firstLot = new ParkingLot(2);
         ParkingLot secondLot = new ParkingLot(2);
         firstLot.park(new Car());
-        EmptyPreferManager manager = new EmptyPreferManager(firstLot, secondLot);
+        ParkManager manager = new ParkManager(new EmptyPreferSelector(), firstLot, secondLot);
         Car car = new Car();
 
         Ticket ticket = manager.park(car);
@@ -40,7 +41,7 @@ public class EmptyPreferManagerTest {
     public void should_park_in_first_when_two_lots_have_same_empty_space() {
         ParkingLot firstLot = new ParkingLot(2);
         ParkingLot secondLot = new ParkingLot(2);
-        EmptyPreferManager manager = new EmptyPreferManager(firstLot, secondLot);
+        ParkManager manager = new ParkManager(new EmptyPreferSelector(), firstLot, secondLot);
         Car car = new Car();
 
         Ticket ticket = manager.park(car);
@@ -54,7 +55,7 @@ public class EmptyPreferManagerTest {
         ParkingLot secondLot = new ParkingLot(1);
         firstLot.park(new Car());
         secondLot.park(new Car());
-        EmptyPreferManager manager = new EmptyPreferManager(firstLot, secondLot);
+        ParkManager manager = new ParkManager(new EmptyPreferSelector(), firstLot, secondLot);
         Car car = new Car();
 
         manager.park(car);
@@ -66,7 +67,7 @@ public class EmptyPreferManagerTest {
         ParkingLot secondLot = new ParkingLot(2);
         Car car = new Car();
         Ticket ticket =firstLot.park(car);
-        EmptyPreferManager manager = new EmptyPreferManager(firstLot, secondLot);
+        ParkManager manager = new ParkManager(new EmptyPreferSelector(), firstLot, secondLot);
 
         Car picked = manager.pick(ticket);
 
@@ -79,7 +80,7 @@ public class EmptyPreferManagerTest {
         ParkingLot secondLot = new ParkingLot(2);
         Car car = new Car();
         Ticket ticket =secondLot.park(car);
-        EmptyPreferManager manager = new EmptyPreferManager(firstLot, secondLot);
+        ParkManager manager = new ParkManager(new EmptyPreferSelector(), firstLot, secondLot);
 
         Car picked = manager.pick(ticket);
 
@@ -90,7 +91,7 @@ public class EmptyPreferManagerTest {
     public void should_throw_exception_when_pick_not_parked_car() {
         ParkingLot firstLot = new ParkingLot(1);
         ParkingLot secondLot = new ParkingLot(1);
-        EmptyPreferManager parkManager = new EmptyPreferManager(firstLot, secondLot);
+        ParkManager parkManager = new ParkManager(new EmptyPreferSelector(), firstLot, secondLot);
 
         parkManager.pick(new Ticket());
     }
