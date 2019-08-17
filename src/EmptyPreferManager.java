@@ -1,3 +1,4 @@
+import java.util.Comparator;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -10,6 +11,8 @@ public class EmptyPreferManager {
     }
 
     public Ticket park(Car car) {
-        return this.parkingLots.get(0).park(car);
+        return this.parkingLots.stream().max(Comparator.comparing(ParkingLot::getEmptyCount))
+                .map(parkingLot -> parkingLot.park(car))
+                .get();
     }
 }
