@@ -29,4 +29,16 @@ public class EmptyPreferManagerTest {
 
         assertThat(secondLot.pick(ticket), is(car));
     }
+
+    @Test
+    public void should_park_in_first_when_two_lots_have_same_empty_space() {
+        ParkingLot firstLot = new ParkingLot(2);
+        ParkingLot secondLot = new ParkingLot(2);
+        EmptyPreferManager manager = new EmptyPreferManager(firstLot, secondLot);
+        Car car = new Car();
+
+        Ticket ticket = manager.park(car);
+
+        assertThat(firstLot.pick(ticket), is(car));
+    }
 }
