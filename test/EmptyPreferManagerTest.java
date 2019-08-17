@@ -50,8 +50,10 @@ public class EmptyPreferManagerTest {
 
     @Test(expected = NoPrkingSpaceException.class)
     public void should_throw_no_parking_space_exception_when_both_lots_have_no_parking_space() {
-        ParkingLot firstLot = new ParkingLot(0);
-        ParkingLot secondLot = new ParkingLot(0);
+        ParkingLot firstLot = new ParkingLot(1);
+        ParkingLot secondLot = new ParkingLot(1);
+        firstLot.park(new Car());
+        secondLot.park(new Car());
         EmptyPreferManager manager = new EmptyPreferManager(firstLot, secondLot);
         Car car = new Car();
 

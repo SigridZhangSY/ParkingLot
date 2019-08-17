@@ -24,7 +24,8 @@ public class NormalParkManagerTest {
 
     @Test(expected = NoPrkingSpaceException.class)
     public void should_not_park_a_car_when_the_only_parking_lot_is_full() {
-        ParkingLot fullParkingLot = new ParkingLot(0);
+        ParkingLot fullParkingLot = new ParkingLot(1);
+        fullParkingLot.park(new Car());
         NormalParkManager parkManager = new NormalParkManager(fullParkingLot);
 
         parkManager.park(new Car());
@@ -70,8 +71,9 @@ public class NormalParkManagerTest {
 
     @Test
     public void should_manager_pick_car_when_park_car_in_second_lot() {
-        ParkingLot firstLot = new ParkingLot(0);
+        ParkingLot firstLot = new ParkingLot(1);
         ParkingLot secondLot = new ParkingLot(1);
+        firstLot.park(new Car());
         Car car = new Car();
         Ticket ticket = secondLot.park(car);
         NormalParkManager parkManager = new NormalParkManager(firstLot, secondLot);

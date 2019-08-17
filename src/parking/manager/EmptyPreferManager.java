@@ -1,8 +1,6 @@
 package parking.manager;
 
-import parking.Car;
 import parking.ParkingLot;
-import parking.Ticket;
 
 import java.util.Comparator;
 
@@ -13,9 +11,8 @@ public class EmptyPreferManager extends ParkManager {
     }
 
     @Override
-    public Ticket park(Car car) {
+    protected ParkingLot selectParkingLot() {
         return this.parkingLots.stream().max(Comparator.comparing(ParkingLot::getEmptyCount))
-                .map(parkingLot -> parkingLot.park(car))
                 .get();
     }
 }

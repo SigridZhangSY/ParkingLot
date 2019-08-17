@@ -4,6 +4,7 @@ import parking.Car;
 import parking.ParkingLot;
 import parking.Ticket;
 import parking.exceptions.CarNotFoundException;
+import parking.exceptions.NoPrkingSpaceException;
 
 import java.util.List;
 
@@ -16,7 +17,6 @@ public abstract class ParkManager {
         this.parkingLots = asList(parkingLots);
     }
 
-    public abstract Ticket park(Car car);
 
     public Car pick(Ticket ticket) {
         for (ParkingLot parkingLot : this.parkingLots) {
@@ -29,4 +29,14 @@ public abstract class ParkManager {
 
         throw new CarNotFoundException();
     }
+
+    public Ticket park(Car car) {
+        ParkingLot selectedParkingLot = selectParkingLot();
+        if(selectedParkingLot.isFull()) {
+            throw new NoPrkingSpaceException();
+        }
+        return selectedParkingLot.park(car);
+    }
+
+    protected abstract ParkingLot selectParkingLot();
 }
