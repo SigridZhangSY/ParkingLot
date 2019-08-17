@@ -15,6 +15,9 @@ public class ParkingLot {
     private Map<Ticket, Car> carMap;
 
     public ParkingLot(int capacity) {
+        if (capacity <= 0){
+            throw new IllegalArgumentException();
+        }
         this.carMap = new HashMap<>();
         this.capacity = capacity;
     }
@@ -48,5 +51,9 @@ public class ParkingLot {
 
     public int getEmptyCount() {
         return this.capacity - this.carMap.size();
+    }
+
+    public float getEmptyRate() {
+        return ((float) this.getEmptyCount()) / this.capacity;
     }
 }

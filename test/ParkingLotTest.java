@@ -5,6 +5,8 @@ import parking.Car;
 import parking.ParkingLot;
 import parking.Ticket;
 
+import java.util.stream.IntStream;
+
 import static org.junit.Assert.*;
 
 public class ParkingLotTest {
@@ -102,5 +104,32 @@ public class ParkingLotTest {
         parkingLot.park(new Car());
 
         assertEquals(parkingLot.getEmptyCount(), capacity - 1);
+    }
+
+    @Test
+    public void should_return_empty_rate_as_one_when_there_is_no_parked_car() {
+        int capacity = 10;
+        ParkingLot parkingLot = new ParkingLot(capacity);
+
+        assertEquals(0, Float.compare(parkingLot.getEmptyRate(), 1));
+    }
+
+    @Test
+    public void should_return_empty_rate_as_zero_when_there_parking_lot_is_full() {
+        int capacity = 10;
+        ParkingLot parkingLot = new ParkingLot(capacity);
+        IntStream.range(0, 10).forEach((number) -> parkingLot.park(new Car()));
+
+        assertEquals(0, Float.compare(parkingLot.getEmptyRate(), 0));
+    }
+
+    @Test
+    public void should_return_empty_rate_correctly_when_park_lot_is_neither_full_or_empty() {
+        int capacity = 10;
+        ParkingLot parkingLot = new ParkingLot(capacity);
+        IntStream.range(0, 3).forEach((number) -> parkingLot.park(new Car()));
+
+        float emptyRate = parkingLot.getEmptyRate();
+        assertEquals(0, Float.compare(emptyRate, (float)0.7));
     }
 }
