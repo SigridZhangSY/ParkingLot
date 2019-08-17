@@ -11,8 +11,8 @@ import java.util.List;
 import static java.util.Arrays.asList;
 
 public class ParkManager {
-    List<ParkingLot> parkingLots;
-    ParkingLotSelector parkingLotSelector;
+    private List<ParkingLot> parkingLots;
+    private ParkingLotSelector parkingLotSelector;
 
     public ParkManager(ParkingLotSelector parkingLotSelector, ParkingLot... parkingLots) {
         this.parkingLots = asList(parkingLots);
@@ -33,7 +33,7 @@ public class ParkManager {
     }
 
     public Ticket park(Car car) {
-        ParkingLot selectedParkingLot = parkingLotSelector.selectParkingLot(this.parkingLots);
+        ParkingLot selectedParkingLot = parkingLotSelector.select(this.parkingLots);
         if (selectedParkingLot.isFull()) {
             throw new NoPrkingSpaceException();
         }

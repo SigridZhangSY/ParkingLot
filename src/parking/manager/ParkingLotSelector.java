@@ -4,6 +4,7 @@ import parking.ParkingLot;
 
 import java.util.List;
 
+@FunctionalInterface
 public interface ParkingLotSelector {
-    ParkingLot selectParkingLot(List<ParkingLot> parkingLots);
+    ParkingLot select(List<ParkingLot> parkingLots);
 }
