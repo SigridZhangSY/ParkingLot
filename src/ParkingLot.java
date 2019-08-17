@@ -1,5 +1,6 @@
 import exceptions.CarDuplicatedException;
 import exceptions.CarNotFoundException;
+import exceptions.NoPrkingSpaceException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,17 +12,16 @@ public class ParkingLot {
     private int capacity;
     private Map<Ticket, Car> carMap;
 
-    public ParkingLot() {
-        this.carMap = new HashMap<>();
-    }
-
     public ParkingLot(int capacity) {
         this.carMap = new HashMap<>();
         this.capacity = capacity;
     }
 
 
-    public Ticket park(Car car) {
+    public Ticket park(Car car) throws NoPrkingSpaceException, CarDuplicatedException{
+        if (this.isFull()) {
+            throw new NoPrkingSpaceException();
+        }
         Optional<Car> existedCar = carMap.values().stream().filter(car::equals).findFirst();
         if (existedCar.isPresent()) {
             throw new CarDuplicatedException();

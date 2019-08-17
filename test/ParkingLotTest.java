@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 public class ParkingLotTest {
 
-    private ParkingLot parkingLot = new ParkingLot();
+    private ParkingLot parkingLot = new ParkingLot(5);
 
     @Test
     public void should_return_ticket_when_park_a_car() {

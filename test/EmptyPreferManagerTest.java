@@ -1,3 +1,4 @@
+import exceptions.NoPrkingSpaceException;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -40,5 +41,16 @@ public class EmptyPreferManagerTest {
         Ticket ticket = manager.park(car);
 
         assertThat(firstLot.pick(ticket), is(car));
+    }
+
+    @Test(expected = NoPrkingSpaceException.class)
+    public void should_throw_no_parking_space_exception_when_both_lots_have_no_parking_space() {
+        ParkingLot firstLot = new ParkingLot(0);
+        ParkingLot secondLot = new ParkingLot(0);
+        EmptyPreferManager manager = new EmptyPreferManager(firstLot, secondLot);
+        Car car = new Car();
+
+        Ticket ticket = manager.park(car);
+
     }
 }
