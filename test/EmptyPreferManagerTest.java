@@ -1,5 +1,10 @@
-import exceptions.NoPrkingSpaceException;
+import parking.exceptions.CarNotFoundException;
+import parking.exceptions.NoPrkingSpaceException;
 import org.junit.Test;
+import parking.Car;
+import parking.manager.EmptyPreferManager;
+import parking.ParkingLot;
+import parking.Ticket;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
@@ -64,5 +69,27 @@ public class EmptyPreferManagerTest {
         Car picked = manager.pick(ticket);
 
         assertThat(picked, is(car));
+    }
+
+    @Test
+    public void should_pick_a_car_from_second_lot() {
+        ParkingLot firstLot = new ParkingLot(2);
+        ParkingLot secondLot = new ParkingLot(2);
+        Car car = new Car();
+        Ticket ticket =secondLot.park(car);
+        EmptyPreferManager manager = new EmptyPreferManager(firstLot, secondLot);
+
+        Car picked = manager.pick(ticket);
+
+        assertThat(picked, is(car));
+    }
+
+    @Test(expected = CarNotFoundException.class)
+    public void should_throw_exception_when_pick_not_parked_car() {
+        ParkingLot firstLot = new ParkingLot(1);
+        ParkingLot secondLot = new ParkingLot(1);
+        EmptyPreferManager parkManager = new EmptyPreferManager(firstLot, secondLot);
+
+        parkManager.pick(new Ticket());
     }
 }

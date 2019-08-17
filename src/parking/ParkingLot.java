@@ -1,6 +1,8 @@
-import exceptions.CarDuplicatedException;
-import exceptions.CarNotFoundException;
-import exceptions.NoPrkingSpaceException;
+package parking;
+
+import parking.exceptions.CarDuplicatedException;
+import parking.exceptions.CarNotFoundException;
+import parking.exceptions.NoPrkingSpaceException;
 
 import java.util.HashMap;
 import java.util.Map;

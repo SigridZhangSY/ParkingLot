@@ -1,6 +1,9 @@
-import exceptions.CarDuplicatedException;
-import exceptions.CarNotFoundException;
+import parking.exceptions.CarDuplicatedException;
+import parking.exceptions.CarNotFoundException;
 import org.junit.Test;
+import parking.Car;
+import parking.ParkingLot;
+import parking.Ticket;
 
 import static org.junit.Assert.*;
 

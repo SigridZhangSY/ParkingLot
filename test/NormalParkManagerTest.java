@@ -1,15 +1,19 @@
-import exceptions.CarNotFoundException;
-import exceptions.NoPrkingSpaceException;
+import parking.exceptions.CarNotFoundException;
+import parking.exceptions.NoPrkingSpaceException;
 import org.junit.Test;
+import parking.Car;
+import parking.manager.NormalParkManager;
+import parking.ParkingLot;
+import parking.Ticket;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class ParkManagerTest {
+public class NormalParkManagerTest {
     @Test
     public void should_park_a_car_when_there_is_only_one_parking_lot() {
         ParkingLot parkingLot = new ParkingLot(10);
-        ParkManager parkManager = new ParkManager(parkingLot);
+        NormalParkManager parkManager = new NormalParkManager(parkingLot);
         Car car = new Car();
 
         Ticket ticket = parkManager.park(car);
@@ -21,7 +25,7 @@ public class ParkManagerTest {
     @Test(expected = NoPrkingSpaceException.class)
     public void should_not_park_a_car_when_the_only_parking_lot_is_full() {
         ParkingLot fullParkingLot = new ParkingLot(0);
-        ParkManager parkManager = new ParkManager(fullParkingLot);
+        NormalParkManager parkManager = new NormalParkManager(fullParkingLot);
 
         parkManager.park(new Car());
     }
@@ -31,7 +35,7 @@ public class ParkManagerTest {
         ParkingLot firstLot = new ParkingLot(1);
         ParkingLot secondLot = new ParkingLot(1);
 
-        ParkManager parkManager = new ParkManager(firstLot, secondLot);
+        NormalParkManager parkManager = new NormalParkManager(firstLot, secondLot);
         Car car = new Car();
         Ticket ticket = parkManager.park(car);
 
@@ -45,7 +49,7 @@ public class ParkManagerTest {
         firstLot.park(new Car());
         ParkingLot secondLot = new ParkingLot(1);
 
-        ParkManager parkManager = new ParkManager(firstLot, secondLot);
+        NormalParkManager parkManager = new NormalParkManager(firstLot, secondLot);
         Car car = new Car();
         Ticket ticket = parkManager.park(car);
 
@@ -57,7 +61,7 @@ public class ParkManagerTest {
         ParkingLot firstLot = new ParkingLot(1);
         Car car = new Car();
         Ticket ticket = firstLot.park(car);
-        ParkManager parkManager = new ParkManager(firstLot);
+        NormalParkManager parkManager = new NormalParkManager(firstLot);
 
         Car pickedCar = parkManager.pick(ticket);
 
@@ -70,7 +74,7 @@ public class ParkManagerTest {
         ParkingLot secondLot = new ParkingLot(1);
         Car car = new Car();
         Ticket ticket = secondLot.park(car);
-        ParkManager parkManager = new ParkManager(firstLot, secondLot);
+        NormalParkManager parkManager = new NormalParkManager(firstLot, secondLot);
 
         Car pickedCar = parkManager.pick(ticket);
 
@@ -81,7 +85,7 @@ public class ParkManagerTest {
     public void should_throw_exception_when_pick_not_parked_car() {
         ParkingLot firstLot = new ParkingLot(1);
         ParkingLot secondLot = new ParkingLot(1);
-        ParkManager parkManager = new ParkManager(firstLot, secondLot);
+        NormalParkManager parkManager = new NormalParkManager(firstLot, secondLot);
 
         parkManager.pick(new Ticket());
     }

@@ -1,24 +1,22 @@
-import exceptions.CarNotFoundException;
-import exceptions.NoPrkingSpaceException;
+package parking.manager;
+
+import parking.Car;
+import parking.ParkingLot;
+import parking.Ticket;
+import parking.exceptions.CarNotFoundException;
 
 import java.util.List;
 
 import static java.util.Arrays.asList;
 
-public class ParkManager {
+public abstract class ParkManager {
     List<ParkingLot> parkingLots;
 
     public ParkManager(ParkingLot... parkingLots) {
         this.parkingLots = asList(parkingLots);
     }
 
-    public Ticket park(Car car) {
-        ParkingLot chosenParkingLot = parkingLots.stream()
-                .filter(p -> !p.isFull())
-                .findFirst()
-                .orElseThrow(NoPrkingSpaceException::new);
-        return chosenParkingLot.park(car);
-    }
+    public abstract Ticket park(Car car);
 
     public Car pick(Ticket ticket) {
         for (ParkingLot parkingLot : this.parkingLots) {
