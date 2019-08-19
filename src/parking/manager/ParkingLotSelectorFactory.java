@@ -15,4 +15,9 @@ public class ParkingLotSelectorFactory {
         return parkingLots -> parkingLots.stream().max(Comparator.comparing(ParkingLot::getEmptyCount))
                 .get();
     }
+
+    public static ParkingLotSelector getEmptyRatePreferSelector() {
+        return parkingLots -> parkingLots.stream().max(Comparator.comparing(ParkingLot::getEmptyRate))
+                .get();
+    }
 }

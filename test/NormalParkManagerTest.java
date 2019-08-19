@@ -5,7 +5,6 @@ import parking.Car;
 import parking.ParkingLot;
 import parking.Ticket;
 import parking.manager.ParkManager;
-import parking.manager.ParkingLotSelectorFactory;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
